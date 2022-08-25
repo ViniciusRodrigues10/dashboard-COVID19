@@ -13,7 +13,12 @@ import json
 CENTER_LAT, CENTER_LON = -14.272572694355336, -51.25567404158474
 # CENTER_LAT, CENTER_LON =  -8.05428, -34.8813
 
-df = pd.read_csv("HIST_PAINEL_COVIDBR_13mai2021.csv", sep=";")
+# df = pd.read_csv("HIST_PAINEL_COVIDBR_2022_Parte1_23ago2022.csv", sep=";")
+# df = pd.read_csv("HIST_PAINEL_COVIDBR_13mai2021.csv", sep=";")
+
+df1 = pd.read_csv("HIST_PAINEL_COVIDBR_2022_Parte1_23ago2022.csv", sep=";")
+df2 = pd.read_csv("HIST_PAINEL_COVIDBR_2022_Parte2_23ago2022.csv", sep=";")
+df = pd.concat([df1, df2])
 
 # Pegando apenas dados dos estados do Brasil
 df_states=df[(~df["estado"].isna()) & (df["codmun"].isna())] 
@@ -31,7 +36,8 @@ select_columns = {"casosAcumulado": "Casos Acumulados",
                 "obitosNovos": "Óbitos por dia"}
 
 # Data de início
-df_states_ = df_states[df_states["data"] == "2020-05-13"]
+
+df_states_ = df_states[df_states["data"] == "2020-08-23"]
 
 # lendo o json
 brazil_states = json.load(open("geojson/brazil_geo.json", "r"))
